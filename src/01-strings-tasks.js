@@ -224,11 +224,11 @@ function getRectangleString(/* width, height */) {
  *
  */
 function encodeToRot13(str) {
-  let criptStr = '';
-  for(let i = 0; i < str.length; i++) {
-    criptStr+= String.fromCharCode(str.charCodeAt(i+13))
-  };
-  return criptStr;
+  const input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  const index = (x) => input.indexOf(x);
+  const translate = (x) => (index(x) > -1 ? output[index(x)] : x);
+  return str.split('').map(translate).join('');
 }
 
 /**
@@ -245,7 +245,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  return typeof value === 'string';
+  return Object.prototype.toString.call(value) === '[object String]';
 }
 
 
