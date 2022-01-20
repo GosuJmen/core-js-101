@@ -233,10 +233,14 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-  let sum = 0;
-  return arr.map((elem) => sum + elem);
+  return arr.reduce((acc, cur, ind) => {
+    if (ind < 1) {
+      acc.push(cur);
+    } else {
+      acc.push(cur + acc[ind - 1]);
+    } return acc;
+  }, []);
 }
-
 /**
  * Returns every second item from the specified array:
  *
@@ -248,8 +252,13 @@ function getMovingSum(arr) {
  * [ 'a', 'b', 'c' , null ]  => [ "b", null ]
  * [ "a" ] => []
  */
-function getSecondItems(/* arr */) {
-  throw new Error('Not implemented');
+function getSecondItems(arr) {
+  return arr.reduce((acc, cur, ind) => {
+    if (ind % 2 === 1) {
+      acc.push(cur);
+    }
+    return acc;
+  }, []);
 }
 
 
@@ -267,8 +276,10 @@ function getSecondItems(/* arr */) {
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  return arr.reduce(((acc, cur, ind) => {
+    acc.push(Array(ind + 1).fill(cur)); return acc;
+  }), []).flat();
 }
 
 
